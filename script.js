@@ -1,10 +1,4 @@
-// getRow: This function should accept two arguments: a sudoku grid (represented by an array of arrays) and a row index. The function should return an array containing the numbers in the specified row.
 
-// getColumn: This function should accept a sudoku grid and a column index. The function should return an array containing the numbers in the specified column.
-
-// getGrid: This function should accept three arguments: a sudoku grid, and an x and y coordinate for one of the puzzle's 3x3 subgrids. The function should return an array with all the numbers in the specified subgrid.
-
-// Remember that our puzzle is broken into 9 subgrids. In our coordinate system, (0,0) will represent the subgrid in the upper left, (1,0) will represent the upper-middle and so on.
 let puzzle = [[ 8,9,5,   7,4,2,   1,3,6 ],
               [ 2,7,1,   9,6,3,   4,8,5 ],
               [ 4,6,3,   5,8,1,   7,9,2 ],
@@ -44,3 +38,10 @@ const getSection = (grid, x, y) => {
     return subGrid;
 }
 
+// We now have functions that accept a sudoku grid and return specific subsections (row, column, or subgrid).
+
+// Now we need to write a function that will accept a subsection and check that it includes the numbers 1-9 (with no repeats). Write a function includes1to9 that accomplishes this.
+
+const subCheck = (arr) => {
+    
+}
