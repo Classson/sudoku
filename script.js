@@ -17,6 +17,24 @@ let puzzle = [[ 8,9,5,   7,4,2,   1,3,6 ],
               [ 7,4,6,   3,2,5,   8,1,9 ],
               [ 3,2,8,   1,9,6,   5,4,7 ]];
 
+
+const getSection = (grid, x, y) => {
+    debugger;
+    y *=3;
+    x *=3;
+    let subGrid = [];
+    for(let i = 0 ; i < 3; i++){
+        subGrid.push(grid[x][i]);
+    }
+    return subGrid;
+}
+
+// getSection(puzzle, 0, 0);
+// // -> [ 8,9,5,2,7,1,4,6,3 ]
+
+getSection(puzzle, 1,0);
+// -> [ 7,4,2,9,6,3,5,8,1 ]
+
 const getRow = (grid, rowInd) => {
     return grid[rowInd];
 }
@@ -29,4 +47,3 @@ const getColumn = (grid, colInd) => {
     return colArr;
 }
 
-getColumn(puzzle, 8);
