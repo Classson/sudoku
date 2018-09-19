@@ -43,5 +43,16 @@ const getSection = (grid, x, y) => {
 // Now we need to write a function that will accept a subsection and check that it includes the numbers 1-9 (with no repeats). Write a function includes1to9 that accomplishes this.
 
 const subCheck = (arr) => {
-    
+    debugger;
+    for(let i = 0; i < arr.length; i++){
+        let currentNum = arr[i];
+        for(let j = i+1; j < arr.length; j++){
+            if(currentNum === arr[j]){
+                return false;
+            }
+        }
+    }
+    return true;
 }
+
+subCheck([1,1,2,3,4,5,6,7,8]);
