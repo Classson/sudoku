@@ -1,23 +1,4 @@
 
-let puzzleTrue = [[ 8,9,5,7,4,2,1,3,6 ],
-              [ 2,7,1,9,6,3,4,8,5 ],
-              [ 4,6,3,5,8,1,7,9,2 ],
-              [ 9,3,4,6,1,7,2,5,8 ],
-              [ 5,1,7,2,3,8,9,6,4 ],
-              [ 6,8,2,4,5,9,3,7,1 ],
-              [ 1,5,9,8,7,4,6,2,3 ],
-              [ 7,4,6,3,2,5,8,1,9 ],
-              [ 3,2,8,1,9,6,5,4,7]];
-
-let puzzleFalse = [[ 8,9,5,7,4,2,1,3,6 ],
-              [ 8,7,1,9,6,3,4,8,5 ],
-              [ 4,6,3,5,8,1,7,9,2 ],
-              [ 9,3,4,6,1,7,2,5,8 ],
-              [ 5,1,7,2,3,8,9,6,4 ],
-              [ 6,8,2,4,5,9,3,7,1 ],
-              [ 1,5,9,8,7,4,6,2,3 ],
-              [ 7,7,6,3,2,5,8,1,1 ], //bad row
-              [ 3,2,8,1,9,6,5,4,7 ]];
 
 
 let checkerCoords = [[0,0], [1,0], [2,0],
@@ -34,6 +15,7 @@ const getColumn = (grid, colInd) => {
         colArr.push(grid[i][colInd]);
     }
     return colArr;
+    console.log(colArr);
 }
 
 const getSection = (grid, x, y) => {
@@ -97,15 +79,57 @@ function sudokuChecker(puzzle){
     checkColumns(puzzle);
     checkSection(puzzle)
     console.log(result);
+    //console.log(inputGrid);
     return result;
 }
 
 
-let inputGrid = [];
+let inputGrid = null;
  
-function addTo() {
-   inputGrid.push(document.getElementById("userGrid").value);
-   console.log(inputGrid); //to confirm it has been added to the array
+function setGrid() {
+    inputGridString = document.getElementById("userGrid").value;
+    inputGrid = // convert array string to number array
+    console.log(inputGrid);
+
 }
 
+function showInputGrid(){
+    console.log(inputGrid);
+    function isGridArray(grid){
+        console.log(typeof grid);
+        if(Array.isArray(grid) === true){
+           console.log(grid + "is an array");
+           } else {
+            console.log(grid + "is not an array");
+           }
+    }
+    
+    isGridArray(inputGrid);
+}
+
+
+
+
+
+let puzzleTrue = [[ 8,9,5,7,4,2,1,3,6 ],
+              [ 2,7,1,9,6,3,4,8,5 ],
+              [ 4,6,3,5,8,1,7,9,2 ],
+              [ 9,3,4,6,1,7,2,5,8 ],
+              [ 5,1,7,2,3,8,9,6,4 ],
+              [ 6,8,2,4,5,9,3,7,1 ],
+              [ 1,5,9,8,7,4,6,2,3 ],
+              [ 7,4,6,3,2,5,8,1,9 ],
+              [ 3,2,8,1,9,6,5,4,7]];
+
+let puzzleFalse = [[ 8,9,5,7,4,2,1,3,6 ],
+              [ 8,7,1,9,6,3,4,8,5 ],
+              [ 4,6,3,5,8,1,7,9,2 ],
+              [ 9,3,4,6,1,7,2,5,8 ],
+              [ 5,1,7,2,3,8,9,6,4 ],
+              [ 6,8,2,4,5,9,3,7,1 ],
+              [ 1,5,9,8,7,4,6,2,3 ],
+              [ 7,7,6,3,2,5,8,1,1 ], 
+              [ 3,2,8,1,9,6,5,4,7 ]];
+
 //sudokuChecker();
+
