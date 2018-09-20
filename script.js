@@ -1,15 +1,25 @@
 
-let puzzle = [[ 8,9,5,   7,4,2,   1,3,6 ],
-              [ 2,7,1,   9,6,3,   4,8,5 ],
-              [ 4,6,3,   5,8,1,   7,9,2 ],
+let puzzleTrue = [[ 8,9,5,7,4,2,1,3,6 ],
+              [ 2,7,1,9,6,3,4,8,5 ],
+              [ 4,6,3,5,8,1,7,9,2 ],
+              [ 9,3,4,6,1,7,2,5,8 ],
+              [ 5,1,7,2,3,8,9,6,4 ],
+              [ 6,8,2,4,5,9,3,7,1 ],
+              [ 1,5,9,8,7,4,6,2,3 ],
+              [ 7,4,6,3,2,5,8,1,9 ],
+              [ 3,2,8,1,9,6,5,4,7]];
 
-              [ 9,3,4,   6,1,7,   2,5,8 ],
-              [ 5,1,7,   2,3,8,   9,6,4 ],
-              [ 6,8,2,   4,5,9,   3,7,1 ],
+let puzzleFalse = [[ 8,9,5,7,4,2,1,3,6 ],
+              [ 8,7,1,9,6,3,4,8,5 ],
+              [ 4,6,3,5,8,1,7,9,2 ],
+              [ 9,3,4,6,1,7,2,5,8 ],
+              [ 5,1,7,2,3,8,9,6,4 ],
+              [ 6,8,2,4,5,9,3,7,1 ],
+              [ 1,5,9,8,7,4,6,2,3 ],
+              [ 7,7,6,3,2,5,8,1,1 ], //bad row
+              [ 3,2,8,1,9,6,5,4,7 ]];
 
-              [ 1,5,9,   8,7,4,   6,2,3 ],
-              [ 7,4,6,   3,2,5,   8,1,9 ],
-              [ 3,2,8,   1,9,6,   5,4,7 ]];
+
 
 
 const getRow = (grid, rowInd) => {
@@ -30,7 +40,6 @@ const getSection = (grid, x, y) => {
     let subGrid = [];
 
     for(let j = 0; j < 3; j++){
-        debugger;
         for(let i = x ; i < x+3; i++){
             subGrid.push(grid[y+j][i]);
         } 
@@ -38,12 +47,10 @@ const getSection = (grid, x, y) => {
     return subGrid;
 }
 
-// We now have functions that accept a sudoku grid and return specific subsections (row, column, or subgrid).
-
-// Now we need to write a function that will accept a subsection and check that it includes the numbers 1-9 (with no repeats). Write a function includes1to9 that accomplishes this.
-
 const subCheck = (arr) => {
-    debugger;
+    if(arr.length !== 9){
+        return false;
+    }
     for(let i = 0; i < arr.length; i++){
         let currentNum = arr[i];
         for(let j = i+1; j < arr.length; j++){
@@ -55,4 +62,35 @@ const subCheck = (arr) => {
     return true;
 }
 
-subCheck([1,1,2,3,4,5,6,7,8]);
+function sudokuChecker(puzzle){
+    let result = true;
+        function checkRows(puzzle){
+            for(let i = 0; i < puzzle.length; i++){
+                let currentRow = getRow(puzzle, i);
+                if(subCheck(currentRow) === false){
+                    result = false;
+                }
+            }
+        }
+        
+        function checkColumns(puzzle){
+            for(let i = 0; i < puzzle[0].length; i++){
+                let currentCol = getColumn(puzzle, i);
+                console.log(currentCol);
+                if(subCheck(currentCol) === false){
+                    result = false;
+                }
+            }
+        }
+    
+    
+    
+    
+    
+    checkRows(puzzle);
+    checkColumns(puzzle);
+    console.log(result);
+}
+
+//console.log("i'm running");
+sudokuChecker(puzzleFalse);
