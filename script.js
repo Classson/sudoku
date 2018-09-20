@@ -20,7 +20,9 @@ let puzzleFalse = [[ 8,9,5,7,4,2,1,3,6 ],
               [ 3,2,8,1,9,6,5,4,7 ]];
 
 
-
+let checkerCoords = [[0,0], [1,0], [2,0],
+                    [0,1], [1,1], [2,1],
+                    [0,2], [1,2], [2,2]];
 
 const getRow = (grid, rowInd) => {
     return grid[rowInd];
@@ -64,33 +66,43 @@ const subCheck = (arr) => {
 
 function sudokuChecker(puzzle){
     let result = true;
-        function checkRows(puzzle){
+//        function checkRows(puzzle){
+//            for(let i = 0; i < puzzle.length; i++){
+//                let currentRow = getRow(puzzle, i);
+//                if(subCheck(currentRow) === false){
+//                    result = false;
+//                }
+//            }
+//        }
+//        
+//        function checkColumns(puzzle){
+//            for(let i = 0; i < puzzle[0].length; i++){
+//                let currentCol = getColumn(puzzle, i);
+//                if(subCheck(currentCol) === false){
+//                    result = false;
+//                }
+//            }
+//        }
+//    
+        function checkSection(puzzle){
             for(let i = 0; i < puzzle.length; i++){
-                let currentRow = getRow(puzzle, i);
-                if(subCheck(currentRow) === false){
-                    result = false;
-                }
-            }
-        }
-        
-        function checkColumns(puzzle){
-            for(let i = 0; i < puzzle[0].length; i++){
-                let currentCol = getColumn(puzzle, i);
-                console.log(currentCol);
-                if(subCheck(currentCol) === false){
+                let currentSec = getSection(puzzle, checkerCoords[i][0], checkerCoords[i][1]);
+                if(subCheck(currentSec) === false){
                     result = false;
                 }
             }
         }
     
+
     
     
     
     
-    checkRows(puzzle);
-    checkColumns(puzzle);
+    //checkRows(puzzle);
+    //checkColumns(puzzle);
+    checkSection(puzzle)
     console.log(result);
 }
 
 //console.log("i'm running");
-sudokuChecker(puzzleFalse);
+sudokuChecker(puzzleTrue);
