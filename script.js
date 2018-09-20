@@ -96,7 +96,16 @@ function sudokuChecker(puzzle){
     checkRows(puzzle);
     checkColumns(puzzle);
     checkSection(puzzle)
+    console.log(result);
     return result;
 }
 
-sudokuChecker(puzzleTrue);
+
+let inputGrid = [];
+ 
+function addTo() {
+   inputGrid.push(document.getElementById("userGrid").value);
+   console.log(inputGrid); //to confirm it has been added to the array
+}
+
+//sudokuChecker();
