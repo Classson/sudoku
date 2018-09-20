@@ -66,24 +66,24 @@ const subCheck = (arr) => {
 
 function sudokuChecker(puzzle){
     let result = true;
-//        function checkRows(puzzle){
-//            for(let i = 0; i < puzzle.length; i++){
-//                let currentRow = getRow(puzzle, i);
-//                if(subCheck(currentRow) === false){
-//                    result = false;
-//                }
-//            }
-//        }
-//        
-//        function checkColumns(puzzle){
-//            for(let i = 0; i < puzzle[0].length; i++){
-//                let currentCol = getColumn(puzzle, i);
-//                if(subCheck(currentCol) === false){
-//                    result = false;
-//                }
-//            }
-//        }
-//    
+        function checkRows(puzzle){
+            for(let i = 0; i < puzzle.length; i++){
+                let currentRow = getRow(puzzle, i);
+                if(subCheck(currentRow) === false){
+                    result = false;
+                }
+            }
+        }
+        
+        function checkColumns(puzzle){
+            for(let i = 0; i < puzzle[0].length; i++){
+                let currentCol = getColumn(puzzle, i);
+                if(subCheck(currentCol) === false){
+                    result = false;
+                }
+            }
+        }
+    
         function checkSection(puzzle){
             for(let i = 0; i < puzzle.length; i++){
                 let currentSec = getSection(puzzle, checkerCoords[i][0], checkerCoords[i][1]);
@@ -93,16 +93,10 @@ function sudokuChecker(puzzle){
             }
         }
     
-
-    
-    
-    
-    
-    //checkRows(puzzle);
-    //checkColumns(puzzle);
+    checkRows(puzzle);
+    checkColumns(puzzle);
     checkSection(puzzle)
-    console.log(result);
+    return result;
 }
 
-//console.log("i'm running");
 sudokuChecker(puzzleTrue);
