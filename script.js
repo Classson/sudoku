@@ -1,14 +1,16 @@
 
 
-
+// array of coords to check each section of the grid
 let checkerCoords = [[0,0], [1,0], [2,0],
                     [0,1], [1,1], [2,1],
                     [0,2], [1,2], [2,2]];
 
+// gets a seperate array for a row of the grid
 const getRow = (grid, rowInd) => {
     return grid[rowInd];
 }
 
+// gets a seperate array for a column of the grid
 const getColumn = (grid, colInd) => {
     let colArr = [];
     for(let i = 0; i < grid.length; i++){
@@ -18,6 +20,7 @@ const getColumn = (grid, colInd) => {
     console.log(colArr);
 }
 
+// gets a seperate array for a subgrid of the grid
 const getSection = (grid, x, y) => {
     y *=3;
     x *=3;
@@ -31,6 +34,7 @@ const getSection = (grid, x, y) => {
     return subGrid;
 }
 
+//checks a sub array of 9 to make sure it passes sudoku rules
 const subCheck = (arr) => {
     if(arr.length !== 9){
         return false;
@@ -46,8 +50,12 @@ const subCheck = (arr) => {
     return true;
 }
 
+
+//function to check each row, column and subgrid of the sudoku grid for sudoku rules
 function sudokuChecker(puzzle){
     let result = true;
+    
+        //itterates through each row checking for sudoku rules
         function checkRows(puzzle){
             for(let i = 0; i < puzzle.length; i++){
                 let currentRow = getRow(puzzle, i);
@@ -56,7 +64,9 @@ function sudokuChecker(puzzle){
                 }
             }
         }
-        
+    
+    
+        //itterates through each column checking for sudoku rules    
         function checkColumns(puzzle){
             for(let i = 0; i < puzzle[0].length; i++){
                 let currentCol = getColumn(puzzle, i);
@@ -66,6 +76,7 @@ function sudokuChecker(puzzle){
             }
         }
     
+        //itterates through each subgrid checking for sudoku rules
         function checkSection(puzzle){
             for(let i = 0; i < puzzle.length; i++){
                 let currentSec = getSection(puzzle, checkerCoords[i][0], checkerCoords[i][1]);
@@ -75,17 +86,19 @@ function sudokuChecker(puzzle){
             }
         }
     
+    //function calls
     checkRows(puzzle);
     checkColumns(puzzle);
     checkSection(puzzle)
-    console.log(result);
-    //console.log(inputGrid);
+    
+    //returns true or false
     return result;
 }
 
 
 let inputGrid = null;
  
+//gets user input grid and converts from string to array
 function setGrid() {
     inputGridString = document.getElementById("userGrid").value;
     inputGrid = // convert array string to number array
@@ -110,7 +123,7 @@ function showInputGrid(){
 
 
 
-
+// test sudoku grids
 let puzzleTrue = [[ 8,9,5,7,4,2,1,3,6 ],
               [ 2,7,1,9,6,3,4,8,5 ],
               [ 4,6,3,5,8,1,7,9,2 ],
