@@ -107,9 +107,7 @@ function setGrid() {
     
     // an empty properly formatted grid
     let emptyArr = [[],[],[],[],[],[],[],[],[]];
-
-    function setGrid() {
-
+    
       //removes all non-numbers
       let numbersString= inputGridString.replace(/\D/g,"");
 
@@ -122,16 +120,15 @@ function setGrid() {
           numbersString = numbersString.substring(1); 
         }
       }
-      //copies the resulting array onto a new array
-      resultArr = emptyArr.slice();
-      return resultArr;
-    }
-
-    fancyNewArr = setGrid(inputGridString);
     
-    console.log(fancyNewArr[0]);
-    return fancyNewArr;
+    //copies the resulting array onto a new array
+    resultArr = emptyArr.slice();
+    
+    console.log(resultArr);
+    return resultArr;
 }
+
+
 
 
 // test sudoku grids
