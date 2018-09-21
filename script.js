@@ -99,34 +99,39 @@ function sudokuChecker(puzzle){
     return result;
 }
 
-
 let inputGrid = null;
  
 //gets user input grid and converts from string to array
 function setGrid() {
-    inputGridString = document.getElementById("userGrid").value;
-    //removes whitespace
-    nospacesStr = inputGridString.replace(/ /g,'');
+    let inputGridString = document.getElementById("userGrid").value;
     
-    console.log(nospacesStr);
+    // an empty properly formatted grid
+    let emptyArr = [[],[],[],[],[],[],[],[],[]];
 
-}
+    function setGrid() {
 
-function showInputGrid(){
-    console.log(inputGrid);
-    function isGridArray(grid){
-        console.log(typeof grid);
-        if(Array.isArray(grid) === true){
-           console.log(grid + "is an array");
-           } else {
-            console.log(grid + "is not an array");
-           }
+      //removes all non-numbers
+      let numbersString= inputGridString.replace(/\D/g,"");
+
+      //populates empty array with numbers from the string
+      for (let i =0; i < 9; i++){
+        currentArr = emptyArr[i];
+        for(let j = 0; j < 9; j++){
+          currentNum = parseInt(numbersString[0]);
+          currentArr.push(currentNum);
+          numbersString = numbersString.substring(1); 
+        }
+      }
+      //copies the resulting array onto a new array
+      resultArr = emptyArr.slice();
+      return resultArr;
     }
+
+    fancyNewArr = setGrid(inputGridString);
     
-    isGridArray(inputGrid);
+    console.log(fancyNewArr[0]);
+    return fancyNewArr;
 }
-
-
 
 
 // test sudoku grids
@@ -150,5 +155,6 @@ let puzzleFalse = [[ 8,9,5,7,4,2,1,3,6 ],
               [ 7,7,6,3,2,5,8,1,1 ], 
               [ 3,2,8,1,9,6,5,4,7 ]];
 
-sudokuChecker(puzzleFalse);
+//sudokuChecker(puzzleFalse);
+
 
