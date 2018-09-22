@@ -79,8 +79,25 @@ li {
     margin-right: auto;
 }
 
-#displayMessage {
-    display: block;
-    margin-left: auto;
-    margin-right: auto; 
+.results {
+    display: flex;
+    flex-direction: column;
+     align-items: center;
+}
+
+#displayMessage{
+    color: rgb(251,82,62);
+    margin: 25px 0px 35px 0px;
+}
+
+#displayGrid {
+    display: grid;
+    grid-template-columns: repeat(9, 50px);
+}
+
+.gridSquare {
+    height: 50px;
+    border: solid 1px rgb(56, 54, 54);
+    background-color: rgba(251,82,62, 0.1);
+
 }

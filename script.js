@@ -191,7 +191,11 @@ const coordsBuilder = (puzzle) => {
     let y = puzzle.length;
     for(let i = 0; i < x; i++){
         for(let j = 0; j < y; j++){
-            let currentDiv = `<div class="gridSquare" id="[${[j,i]}]">${puzzle[i][j]}</div>`;
+            let currentNum = puzzle[i][j];
+            if(!currentNum){
+                currentNum = "😕";
+            }
+            let currentDiv = `<div class="gridSquare" id="[${[j,i]}]">${currentNum}</div>`;
             coordsStr +=currentDiv;
             }
         }
