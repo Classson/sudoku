@@ -2,10 +2,6 @@ let result = true;
 
 // object of methods used in sudokuChecker
 let sudMethodsObj = {
-    // array of coords to check each section of the grid
-    let checkerCoords : [[0,0], [1,0], [2,0],
-                        [0,1], [1,1], [2,1],
-                        [0,2], [1,2], [2,2]],
 
     // gets a seperate array for a row of the grid
     getRow : function (grid, rowInd) {
@@ -50,7 +46,12 @@ let sudMethodsObj = {
             }
         }
         return true;
-    }  
+    },
+    
+    // array of coords to check each section of the grid
+    checkerCoords : [[0,0], [1,0], [2,0],
+                    [0,1], [1,1], [2,1],
+                    [0,2], [1,2], [2,2]],
 }
 
 
