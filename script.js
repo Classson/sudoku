@@ -15,13 +15,13 @@ let puzzleFalse = [[ 8,8,5,7,4,2,1,3,6 ],
               [ 9,3,4,6,1,7,2,5,8 ],
               [ 5,1,7,2,3,8,9,6,4 ],
               [ 6,8,2,4,5,9,3,7,1 ],
-              [ 1,5,9,8,7,4,6,2,3 ],
+              [ 8,5,9,8,7,4,6,2,3 ],
               [ 7,7,6,3,2,5,8,1,1 ], 
               [ 3,2,8,1,9,6,5,4,7 ]];
 
 let result = true;
 let affectedRows = [];
-let affectedColumms = [];
+let affectedColumns = [];
 let affectedSections = [];
 
 // object of methods used in sudokuChecker
@@ -104,6 +104,7 @@ function sudokuChecker(puzzle){
             for(let i = 0; i < puzzle[0].length; i++){
                 let currentCol = sudMethodsObj.getColumn(puzzle, i);
                 if(sudMethodsObj.subCheck(currentCol) === false){
+                    affectedColumns.push(i); 
                     result = false;
                 }
             }
@@ -150,7 +151,6 @@ function sudokuChecker(puzzle){
     
 
     //returns true or false
-    console.log(affectedRows);
     console.log(result);
     return result;
 }
@@ -211,15 +211,22 @@ function displayResultsGrid(){
     document.getElementById('displayGrid').innerHTML = display;
     function changeColor() {
         if(affectedRows.length > 0){
-            console.log(affectedRows);
             for(let j = 0; j < affectedRows.length; j++){
                 for(let i = 0; i < 9; i++){
                     let currentCoord = `[${i},${affectedRows[j]}]`;
+                    document.getElementById(`${currentCoord}`).style.backgroundColor = "rgba(251,82,62,0.4)"; 
+                }
+            }
+        } 
+        if(affectedColumns.length > 0){
+            for(let i = 0; i < affectedColumns.length; i++){
+                for(let j = 0; j < 9; j++){
+                    let currentCoord = `[${affectedColumns[i]},${j}]`;
                     console.log(currentCoord);
                     document.getElementById(`${currentCoord}`).style.backgroundColor = "rgba(251,82,62,0.4)"; 
                 }
             }
-        }   
+        }
     }
     changeColor();
 }
@@ -228,7 +235,7 @@ function displayResultsGrid(){
 function reset(){
     result = true;
     affectedRows = [];
-    affectedColumms = [];
+    affectedColumns = [];
     affectedSections = [];
 }
 
