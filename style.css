@@ -78,3 +78,9 @@ li {
     margin-left: auto;
     margin-right: auto;
 }
+
+#displayMessage {
+    display: block;
+    margin-left: auto;
+    margin-right: auto; 
+}

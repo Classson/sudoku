@@ -1,3 +1,24 @@
+// test sudoku grids
+let puzzleTrue = [[ 8,9,5,7,4,2,1,3,6 ],
+              [ 2,7,1,9,6,3,4,8,5 ],
+              [ 4,6,3,5,8,1,7,9,2 ],
+              [ 9,3,4,6,1,7,2,5,8 ],
+              [ 5,1,7,2,3,8,9,6,4 ],
+              [ 6,8,2,4,5,9,3,7,1 ],
+              [ 1,5,9,8,7,4,6,2,3 ],
+              [ 7,4,6,3,2,5,8,1,9 ],
+              [ 3,2,8,1,9,6,5,4,7]];
+
+let puzzleFalse = [[ 8,9,5,7,4,2,1,3,6 ],
+              [ 8,7,1,9,6,3,4,8,5 ],
+              [ 4,6,3,5,8,1,7,9,2 ],
+              [ 9,3,4,6,1,7,2,5,8 ],
+              [ 5,1,7,2,3,8,9,6,4 ],
+              [ 6,8,2,4,5,9,3,7,1 ],
+              [ 1,5,9,8,7,4,6,2,3 ],
+              [ 7,7,6,3,2,5,8,1,1 ], 
+              [ 3,2,8,1,9,6,5,4,7 ]];
+
 let result = true;
 
 // object of methods used in sudokuChecker
@@ -164,29 +185,31 @@ function setGrid() {
 }
 
 
+const coordsBuilder = (puzzle) => {
+    let coordsStr = '';
+    let x = puzzle[0].length;
+    let y = puzzle.length;
+    for(let i = 0; i < x; i++){
+        for(let j = 0; j < y; j++){
+            let currentDiv = `<div class="gridSquare" id="[${[j,i]}]">${puzzle[i][j]}</div>`;
+            coordsStr +=currentDiv;
+            }
+        }
+        return coordsStr;
+    }
+    
+
+
+function displayResultsGrid(){
+    let display = coordsBuilder(setGrid());
+    document.getElementById('displayGrid').innerHTML = display;
+    console.log(display);
+}
 
 //resets the result to true after results are displayed
 function reset(){
     result = true;
 }
 
-// test sudoku grids
-let puzzleTrue = [[ 8,9,5,7,4,2,1,3,6 ],
-              [ 2,7,1,9,6,3,4,8,5 ],
-              [ 4,6,3,5,8,1,7,9,2 ],
-              [ 9,3,4,6,1,7,2,5,8 ],
-              [ 5,1,7,2,3,8,9,6,4 ],
-              [ 6,8,2,4,5,9,3,7,1 ],
-              [ 1,5,9,8,7,4,6,2,3 ],
-              [ 7,4,6,3,2,5,8,1,9 ],
-              [ 3,2,8,1,9,6,5,4,7]];
 
-let puzzleFalse = [[ 8,9,5,7,4,2,1,3,6 ],
-              [ 8,7,1,9,6,3,4,8,5 ],
-              [ 4,6,3,5,8,1,7,9,2 ],
-              [ 9,3,4,6,1,7,2,5,8 ],
-              [ 5,1,7,2,3,8,9,6,4 ],
-              [ 6,8,2,4,5,9,3,7,1 ],
-              [ 1,5,9,8,7,4,6,2,3 ],
-              [ 7,7,6,3,2,5,8,1,1 ], 
-              [ 3,2,8,1,9,6,5,4,7 ]];
+

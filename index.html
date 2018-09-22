@@ -29,9 +29,11 @@ https://learn.fullstackacademy.com/workshop/5ad399aa137d870004733bac/content/5ad
         <textarea type="text" id="userGrid" rows="10" cols="30" placeholder="Enter grid here."></textarea>
 
         <br>
-        <input type ="button" id="submitButton" onclick="sudokuChecker(setGrid());reset();" value="Submit Grid" />
+        <input type ="button" id="submitButton" onclick="sudokuChecker(setGrid());displayResultsGrid();reset();" value="Submit Grid" />
 
         <h2 id="displayMessage"></h2>
+        
+        <div id="displayGrid"></div>
     </div>
     
 <script src="script.js"></script>
