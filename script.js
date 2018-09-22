@@ -1,5 +1,4 @@
-
-
+let result = true;
 
 let sudMethodsObj = {
     // array of coords to check each section of the grid
@@ -56,7 +55,7 @@ let sudMethodsObj = {
 
 //function to check each row, column and subgrid of the sudoku grid for sudoku rules
 function sudokuChecker(puzzle){
-    let result = true;
+    
     
         //itterates through each row checking for sudoku rules
         function checkRows(puzzle){
@@ -93,9 +92,13 @@ function sudokuChecker(puzzle){
         let message = null;
         // sets message for true or false
         if(result === true){
-            message = "Looks great!";
-        } else {
-            message = "No dice";
+            message = "😎 Looks great! 😎";
+        }
+        if(result === false){
+            message = "😓 No dice. 😓";
+        }
+        if(result === "incorrectInputArray"){
+            message = "😖 You entered the wrong amount of numbers. 😖"
         }
         
         document.getElementById('displayMessage').innerHTML = message;
@@ -117,7 +120,7 @@ function sudokuChecker(puzzle){
     return result;
 }
 
- 
+
 // THERE MUST BE AN EASIER WAY TO DO THIS
 //gets user input grid and converts from string to array
 function setGrid() {
@@ -128,6 +131,10 @@ function setGrid() {
     
       //removes all non-numbers
       let numbersString= inputGridString.replace(/\D/g,"");
+    
+      if(numbersString.length !== 81){
+          result = "incorrectInputArray";
+      }
 
       //populates empty array with numbers from the string
       for (let i =0; i < 9; i++){
@@ -148,7 +155,10 @@ function setGrid() {
 
 
 
-
+//resets the result to true after results are displayed
+function reset(){
+    result = true;
+}
 
 // test sudoku grids
 let puzzleTrue = [[ 8,9,5,7,4,2,1,3,6 ],
