@@ -2,7 +2,11 @@
 https://images.pexels.com/photos/1314543/pexels-photo-1314543.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940 */
 
 body {
-    background-color: cornflowerblue;
+    background-color: rgb(205, 205, 205);
+    color: rgb(30, 27, 27);
+    font-family: sans-serif;
+    padding: 20px;
+    margin: 20px;
 }
 
 #displayMessage {
@@ -10,3 +14,10 @@ body {
     display: none;
 }
 
+h1 {
+    text-align: center;
+}
+
+li {
+    padding: 5px;
+}
