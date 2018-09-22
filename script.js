@@ -9,7 +9,7 @@ let puzzleTrue = [[ 8,9,5,7,4,2,1,3,6 ],
               [ 7,4,6,3,2,5,8,1,9 ],
               [ 3,2,8,1,9,6,5,4,7]];
 
-let puzzleFalse = [[ 8,9,5,7,4,2,1,3,6 ],
+let puzzleFalse = [[ 8,8,5,7,4,2,1,3,6 ],
               [ 8,7,1,9,6,3,4,8,5 ],
               [ 4,6,3,5,8,1,7,9,2 ],
               [ 9,3,4,6,1,7,2,5,8 ],
@@ -20,6 +20,9 @@ let puzzleFalse = [[ 8,9,5,7,4,2,1,3,6 ],
               [ 3,2,8,1,9,6,5,4,7 ]];
 
 let result = true;
+let affectedRows = [];
+let affectedColumms = [];
+let affectedSections = [];
 
 // object of methods used in sudokuChecker
 let sudMethodsObj = {
@@ -36,7 +39,6 @@ let sudMethodsObj = {
             colArr.push(grid[i][colInd]);
         }
         return colArr;
-        console.log(colArr);
     },
 
     // gets a seperate array for a subgrid of the grid
@@ -91,6 +93,7 @@ function sudokuChecker(puzzle){
             for(let i = 0; i < puzzle.length; i++){
                 let currentRow = sudMethodsObj.getRow(puzzle, i);
                 if(sudMethodsObj.subCheck(currentRow) === false){
+                    affectedRows.push(i);  
                     result = false;
                 }
             }
@@ -147,6 +150,7 @@ function sudokuChecker(puzzle){
     
 
     //returns true or false
+    console.log(affectedRows);
     console.log(result);
     return result;
 }
@@ -180,7 +184,6 @@ function setGrid() {
     //copies the resulting array onto a new array
     resultArr = emptyArr.slice();
     
-    console.log(resultArr);
     return resultArr;
 }
 
@@ -200,20 +203,37 @@ const coordsBuilder = (puzzle) => {
             }
         }
         return coordsStr;
-    }
-    
+}
 
 
 function displayResultsGrid(){
     let display = coordsBuilder(setGrid());
     document.getElementById('displayGrid').innerHTML = display;
-    console.log(display);
+    function changeColor() {
+        if(affectedRows.length > 0){
+            console.log(affectedRows);
+            for(let j = 0; j < affectedRows.length; j++){
+                for(let i = 0; i < 9; i++){
+                    let currentCoord = `[${i},${affectedRows[j]}]`;
+                    console.log(currentCoord);
+                    document.getElementById(`${currentCoord}`).style.backgroundColor = "rgba(251,82,62,0.4)"; 
+                }
+            }
+        }   
+    }
+    changeColor();
 }
 
 //resets the result to true after results are displayed
 function reset(){
     result = true;
+    affectedRows = [];
+    affectedColumms = [];
+    affectedSections = [];
 }
+
+
+
 
 
 
