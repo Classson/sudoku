@@ -1,4 +1,6 @@
 
+
+
 let sudMethodsObj = {
     // array of coords to check each section of the grid
     checkerCoords : [[0,0], [1,0], [2,0],
@@ -48,9 +50,7 @@ let sudMethodsObj = {
             }
         }
         return true;
-    }
-
-    
+    }  
 }
 
 
@@ -67,8 +67,7 @@ function sudokuChecker(puzzle){
                 }
             }
         }
-    
-    
+      
         //itterates through each column checking for sudoku rules    
         function checkColumns(puzzle){
             for(let i = 0; i < puzzle[0].length; i++){
@@ -89,18 +88,37 @@ function sudokuChecker(puzzle){
             }
         }
     
+    
+    function displayResults() {
+        let message = null;
+        // sets message for true or false
+        if(result === true){
+            message = "Looks great!";
+        } else {
+            message = "No dice";
+        }
+        
+        document.getElementById('displayMessage').innerHTML = message;
+
+        // displays results
+        document.getElementById('displayMessage').style.display = 'block';
+        
+    }
+    
     //function calls
     checkRows(puzzle);
     checkColumns(puzzle);
     checkSection(puzzle)
+    displayResults();
     
+
     //returns true or false
     console.log(result);
     return result;
 }
 
-let inputGrid = null;
  
+// THERE MUST BE AN EASIER WAY TO DO THIS
 //gets user input grid and converts from string to array
 function setGrid() {
     let inputGridString = document.getElementById("userGrid").value;
@@ -131,6 +149,7 @@ function setGrid() {
 
 
 
+
 // test sudoku grids
 let puzzleTrue = [[ 8,9,5,7,4,2,1,3,6 ],
               [ 2,7,1,9,6,3,4,8,5 ],
@@ -151,6 +170,3 @@ let puzzleFalse = [[ 8,9,5,7,4,2,1,3,6 ],
               [ 1,5,9,8,7,4,6,2,3 ],
               [ 7,7,6,3,2,5,8,1,1 ], 
               [ 3,2,8,1,9,6,5,4,7 ]];
-
-
-

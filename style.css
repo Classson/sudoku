@@ -4,3 +4,9 @@ https://images.pexels.com/photos/1314543/pexels-photo-1314543.jpeg?auto=compress
 body {
     background-color: cornflowerblue;
 }
+
+#displayMessage {
+    color: deeppink;
+    display: none;
+}
+
