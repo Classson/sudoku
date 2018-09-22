@@ -49,9 +49,15 @@ let sudMethodsObj = {
     },
     
     // array of coords to check each section of the grid
-    checkerCoords : [[0,0], [1,0], [2,0],
-                    [0,1], [1,1], [2,1],
-                    [0,2], [1,2], [2,2]],
+    coordsBuilder : function (x,y){
+      let coordsArr = [];
+      for(let i = 0; i < x; i++){
+        for(let j = 0; j < y; j++){
+          coordsArr.push([j,i]);
+        }
+      }
+      return coordsArr;
+    }
 }
 
 
@@ -81,14 +87,16 @@ function sudokuChecker(puzzle){
     
         //itterates through each subgrid checking for sudoku rules
         function checkSection(puzzle){
-            for(let i = 0; i < puzzle.length; i++){
-                let currentSec = sudMethodsObj.getSection(puzzle, sudMethodsObj.checkerCoords[i][0], sudMethodsObj.checkerCoords[i][1]);
-                if(sudMethodsObj.subCheck(currentSec) === false){
-                    result = false;
-                }
+          for(let i = 0; i < (puzzle.length/3); i++){
+            for(let j = 0; j < (puzzle.length/3); j++){
+              let currentSec = sudMethodsObj.getSection(puzzle, j, i);
+              if(sudMethodsObj.subCheck(currentSec) === false){
+                result = false;
+              }
             }
+          }
         }
-    
+
     
     function displayResults() {
         let message = null;
