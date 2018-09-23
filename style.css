@@ -4,7 +4,7 @@ body {
     margin: 0;
     padding: 0;
     font-family: sans-serif;
-    background-color: rgb(205, 205, 205);
+    background-color: rgba(56, 54, 54, 0.6);
 }
 
 #header {
@@ -21,7 +21,7 @@ body {
 }
 
 #header-cover {
-    background-color: rgba(255, 255, 255, 0.55);
+    background-color: rgba(255, 255, 255, 0.4);
     position: absolute;
     top: 0;
     height: 130px;
@@ -30,7 +30,7 @@ body {
 }
 
 #container {
-    background-color: rgb(205, 205, 205);
+    background-color: #d4fffb;
     color: rgb(30, 27, 27);
     padding: 20px;
     margin-right: 30px;
@@ -94,11 +94,11 @@ li {
 #displayGrid {
     display: grid;
     grid-template-columns: repeat(9, 50px);
+    margin: 5px 10px 60px 5px;
 }
 
 .gridSquare {
     height: 50px;
     border: solid 1px rgb(56, 54, 54);
-    background-color: rgba(251,82,62, 0.1);
-
+    background-color: rgb(255, 214, 214);
 }

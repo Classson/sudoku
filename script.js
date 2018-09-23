@@ -1,13 +1,13 @@
 //// test sudoku grids
-//let puzzleTrue = [[ 8,9,5,7,4,2,1,3,6 ],
-//              [ 2,7,1,9,6,3,4,8,5 ],
-//              [ 4,6,3,5,8,1,7,9,2 ],
-//              [ 9,3,4,6,1,7,2,5,8 ],
-//              [ 5,1,7,2,3,8,9,6,4 ],
-//              [ 6,8,2,4,5,9,3,7,1 ],
-//              [ 1,5,9,8,7,4,6,2,3 ],
-//              [ 7,4,6,3,2,5,8,1,9 ],
-//              [ 3,2,8,1,9,6,5,4,7]];
+let puzzleTrue = [[ 8,9,5,7,4,2,1,3,6 ],
+              [ 2,7,1,9,6,3,4,8,5 ],
+              [ 4,6,3,5,8,1,7,9,2 ],
+              [ 9,3,4,6,1,7,2,5,8 ],
+              [ 5,1,7,2,3,8,9,6,4 ],
+              [ 6,8,2,4,5,9,3,7,1 ],
+              [ 1,5,9,8,7,4,6,2,3 ],
+              [ 7,4,6,3,2,5,8,1,9 ],
+              [ 3,2,8,1,9,6,5,4,7]];
 //
 //let puzzleFalse = [[ 8,8,5,7,4,2,1,3,6 ],
 //              [ 8,7,1,9,6,3,4,8,5 ],
@@ -271,7 +271,7 @@ function displayResultsGrid(){
             for(let j = 0; j < sudMethodsObj.affectedRows.length; j++){
                 for(let i = 0; i < 9; i++){
                     let currentCoord = `[${i},${sudMethodsObj.affectedRows[j]}]`;
-                    document.getElementById(`${currentCoord}`).style.backgroundColor = "rgba(251,82,62,0.3)"; 
+                    document.getElementById(`${currentCoord}`).style.backgroundColor = "#ff997a"; 
                 }
             }
         } 
@@ -279,7 +279,7 @@ function displayResultsGrid(){
             for(let i = 0; i < sudMethodsObj.affectedColumns.length; i++){
                 for(let j = 0; j < 9; j++){
                     let currentCoord = `[${sudMethodsObj.affectedColumns[i]},${j}]`;
-                    document.getElementById(`${currentCoord}`).style.backgroundColor = "rgba(251,82,62,0.3)"; 
+                    document.getElementById(`${currentCoord}`).style.backgroundColor = "#ff997a"; 
                 }
             }
         }
@@ -320,7 +320,7 @@ function displayResultsGrid(){
                     let currentArr = currentNestedArr[j];
                     let currentCoord = `[${currentArr[1]},${currentArr[0]}]`;
 
-                    document.getElementById(`${currentCoord}`).style.backgroundColor = "rgba(251,82,62,0.3)";  
+                    document.getElementById(`${currentCoord}`).style.backgroundColor = "#ff997a";  
                 }
             }
         }
