@@ -116,6 +116,7 @@ function sudokuChecker(puzzle){
             for(let j = 0; j < (puzzle.length/3); j++){
               let currentSec = sudMethodsObj.getSection(puzzle, j, i);
               if(sudMethodsObj.subCheck(currentSec) === false){
+                affectedSections.push([j,i]);
                 result = false;
               }
             }
@@ -151,7 +152,7 @@ function sudokuChecker(puzzle){
     
 
     //returns true or false
-    console.log(result);
+    console.log(affectedSections);
     return result;
 }
 
@@ -187,7 +188,7 @@ function setGrid() {
     return resultArr;
 }
 
-
+//writes a string of divs that display as the input grid
 const coordsBuilder = (puzzle) => {
     let coordsStr = '';
     let x = puzzle[0].length;
@@ -205,16 +206,18 @@ const coordsBuilder = (puzzle) => {
         return coordsStr;
 }
 
-
+//displays the input grid with incorrect rows, columns, and sections highlighted
 function displayResultsGrid(){
+    
     let display = coordsBuilder(setGrid());
     document.getElementById('displayGrid').innerHTML = display;
+    //changes the background color of incorrect rows and columns
     function changeColor() {
         if(affectedRows.length > 0){
             for(let j = 0; j < affectedRows.length; j++){
                 for(let i = 0; i < 9; i++){
                     let currentCoord = `[${i},${affectedRows[j]}]`;
-                    document.getElementById(`${currentCoord}`).style.backgroundColor = "rgba(251,82,62,0.4)"; 
+                    document.getElementById(`${currentCoord}`).style.backgroundColor = "rgba(251,82,62,0.3)"; 
                 }
             }
         } 
@@ -222,14 +225,60 @@ function displayResultsGrid(){
             for(let i = 0; i < affectedColumns.length; i++){
                 for(let j = 0; j < 9; j++){
                     let currentCoord = `[${affectedColumns[i]},${j}]`;
-                    console.log(currentCoord);
-                    document.getElementById(`${currentCoord}`).style.backgroundColor = "rgba(251,82,62,0.4)"; 
+                    document.getElementById(`${currentCoord}`).style.backgroundColor = "rgba(251,82,62,0.3)"; 
                 }
             }
         }
     }
+    
+    //finds the coords of incorrect sections and colors them on the display grid
+    function findAndColorSections(){
+
+        // makes an array of coords
+        function getSectionInd(grid, x, y) {
+            y *=3;
+            x *=3;
+            let affectedCoordsArr = [];
+            for(let j = 0; j < 3; j++){
+                    for(let i = x ; i < x+3; i++){
+                    affectedCoordsArr.push([(y+j), i]);
+                } 
+            }
+            return affectedCoordsArr;
+        }
+
+      //itterates through the affected sections to get an array of coords
+        function itterateThruInd(){
+            let arrOfAffectedSec = [];
+            for(let i = 0; i < affectedSections.length; i++){
+                let currentArr = getSectionInd(setGrid(), affectedSections[i][0], affectedSections[i][1]);
+                arrOfAffectedSec.push(currentArr.slice());
+            }
+            return arrOfAffectedSec;
+        }
+
+      //colors the affected elements on the display grid
+        function colorAffectedSecs(){
+            let arrOfAffected = itterateThruInd();
+            for(let i = 0; i < arrOfAffected.length; i++){
+                let currentNestedArr = arrOfAffected[i];
+                for(let j = 0; j < currentNestedArr.length; j++){
+                    let currentArr = currentNestedArr[j];
+                    let currentCoord = `[${currentArr[0]},${currentArr[1]}]`;
+
+                    document.getElementById(`${currentCoord}`).style.backgroundColor = "rgba(251,82,62,0.3)";  
+                }
+            }
+        }
+        //function call
+        colorAffectedSecs();
+    }
+    
+    //function calls
+    findAndColorSections();
     changeColor();
 }
+    
 
 //resets the result to true after results are displayed
 function reset(){
@@ -238,6 +287,7 @@ function reset(){
     affectedColumns = [];
     affectedSections = [];
 }
+
 
 
 
