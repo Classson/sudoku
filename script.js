@@ -112,8 +112,8 @@ function sudokuChecker(puzzle){
                 for(let j = 0; j < rowRepeaters[i].length; j++){
                     let currentCoor = [rowRepeaters[i][0], rowRepeaters[i][j]];
                     for(let k = 0; k < rowRepeaters[i][j].length; k++){
-                        let currentCoord = [rowRepeaters[i][0],rowRepeaters[i][j][k]];
-                        repeatingNumbers.push(currentCoord);
+                        let currentCoord = [rowRepeaters[i][j][k],rowRepeaters[i][0]];
+                        sudMethodsObj.repeatingNumbers.push(currentCoord);
                     }
                 }
             }
@@ -121,11 +121,23 @@ function sudokuChecker(puzzle){
       
         //itterates through each column checking for sudoku rules    
         function checkColumns(puzzle){
+            let colRepeaters = [];
             for(let i = 0; i < puzzle[0].length; i++){
                 let currentCol = sudMethodsObj.getColumn(puzzle, i);
                 if(sudMethodsObj.subCheck(currentCol)[0] === false){
-                    sudMethodsObj.affectedColumns.push(i); 
+                    sudMethodsObj.affectedColumns.push(i);
+                    colRepeaters.push([i,sudMethodsObj.subCheck(currentCol)[1]]);
                     sudMethodsObj.result = false;
+                }
+            }
+            //formats repeaters in coord pairs and pushes them to repeatingNumbers array
+            for(let i = 0; i < colRepeaters.length; i++){
+                for(let j = 0; j < colRepeaters[i].length; j++){
+                    let currentCoor = [colRepeaters[i][0], colRepeaters[i][j]];
+                    for(let k = 0; k < colRepeaters[i][j].length; k++){
+                        let currentCoord = [colRepeaters[i][0],colRepeaters[i][j][k]];
+                        sudMethodsObj.repeatingNumbers.push(currentCoord);
+                    }
                 }
             }
         }
@@ -170,7 +182,6 @@ function sudokuChecker(puzzle){
     checkSection(puzzle)
     displayResults();
     
-    console.log(sudMethodsObj.repeatingNumbers);
     //returns true or false
     return sudMethodsObj.result;
 }
@@ -289,8 +300,19 @@ function displayResultsGrid(){
                 }
             }
         }
-        //function call
+        
+        //color repeating numbers from repeatingNumbers array
+        function colorRepeaters(){
+            for(let i = 0; i < sudMethodsObj.repeatingNumbers.length; i++){
+                let currentCoord = `[${sudMethodsObj.repeatingNumbers[i][0]},${sudMethodsObj.repeatingNumbers[i][1]}]`;
+                console.log(currentCoord);
+                document.getElementById(`${currentCoord}`).style.color = "rgb(239, 0, 0)";
+            }
+        }
+        
+        //function calls
         colorAffectedSecs();
+        colorRepeaters();
     }
     
     //function calls
