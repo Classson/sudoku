@@ -78,6 +78,25 @@ let sudMethodsObj = {
       return coordsArr;
     },
     
+    //returns coords of repeating numbers from affected sections
+    returnRepSecCoords : function (x, y, id){
+      y *=3;
+      x *=3;
+      if(id < 3){
+        resultX = x;
+      }
+      else if(id < 6){
+        resultX = (x+1);
+        y-=3;
+      }
+      else{
+        resultX = (x+2);
+        y-=6;
+      }
+      resultY = y+id;
+    return [resultY, resultX];
+    },
+    
     //results are sent here
     result : true,
     
@@ -87,7 +106,11 @@ let sudMethodsObj = {
     
     affectedSections : [],
     
-    repeatingNumbers: []
+    repeatingNumbers : [],
+    
+    secRepeaters : [],
+    
+    arrOfRepCoSec : []
     
 }
 
@@ -144,16 +167,17 @@ function sudokuChecker(puzzle){
     
         //itterates through each subgrid checking for sudoku rules
         function checkSection(puzzle){
-          for(let i = 0; i < (puzzle.length/3); i++){
-            for(let j = 0; j < (puzzle.length/3); j++){
-              let currentSec = sudMethodsObj.getSection(puzzle, j, i);
-              if(sudMethodsObj.subCheck(currentSec)[0] === false){
-                sudMethodsObj.affectedSections.push([j,i]);
-                sudMethodsObj.result = false;
-              }
+            for(let i = 0; i < 3; i++){
+                for(let j = 0; j < 3; j++){
+                    let currentSec = sudMethodsObj.getSection(puzzle, j, i);
+                    if(sudMethodsObj.subCheck(currentSec)[0] === false){
+                    sudMethodsObj.secRepeaters.push([i, j, sudMethodsObj.subCheck(currentSec)[1]]);
+                    sudMethodsObj.affectedSections.push([j,i]);
+                    sudMethodsObj.result = false;
+                }
             }
-          }
         }
+    }
 
     
     function displayResults() {
@@ -286,7 +310,7 @@ function displayResultsGrid(){
             }
             return arrOfAffectedSec;
         }
-
+        
       //colors the affected elements on the display grid
         function colorAffectedSecs(){
             let arrOfAffected = itterateThruInd();
@@ -294,7 +318,7 @@ function displayResultsGrid(){
                 let currentNestedArr = arrOfAffected[i];
                 for(let j = 0; j < currentNestedArr.length; j++){
                     let currentArr = currentNestedArr[j];
-                    let currentCoord = `[${currentArr[0]},${currentArr[1]}]`;
+                    let currentCoord = `[${currentArr[1]},${currentArr[0]}]`;
 
                     document.getElementById(`${currentCoord}`).style.backgroundColor = "rgba(251,82,62,0.3)";  
                 }
@@ -305,14 +329,33 @@ function displayResultsGrid(){
         function colorRepeaters(){
             for(let i = 0; i < sudMethodsObj.repeatingNumbers.length; i++){
                 let currentCoord = `[${sudMethodsObj.repeatingNumbers[i][0]},${sudMethodsObj.repeatingNumbers[i][1]}]`;
-                console.log(currentCoord);
+                document.getElementById(`${currentCoord}`).style.color = "rgb(239, 0, 0)";
+            }
+        }
+        
+        //takes repeating numbers from sections and returns an array with correctly formatted coordinates to color
+        function returnArrOfRepSecCos(){
+          for(let i = 0; i < sudMethodsObj.secRepeaters.length; i++){
+            for(let j = 0; j < sudMethodsObj.secRepeaters[i][2].length; j++){
+              let currentEl = [sudMethodsObj.secRepeaters[i][0], sudMethodsObj.secRepeaters[i][1], sudMethodsObj.secRepeaters[i][2][j]];
+              let resultCoords = sudMethodsObj.returnRepSecCoords(currentEl[0], currentEl[1], currentEl[2]);
+              sudMethodsObj.arrOfRepCoSec.push(resultCoords);
+            }
+          }
+        }
+        
+        function colorsNumsFromAffSecs(){
+            for(let i = 0; i < sudMethodsObj.arrOfRepCoSec.length; i++){
+                let currentCoord = `[${sudMethodsObj.arrOfRepCoSec[i][0]},${sudMethodsObj.arrOfRepCoSec[i][1]}]`;
                 document.getElementById(`${currentCoord}`).style.color = "rgb(239, 0, 0)";
             }
         }
         
         //function calls
+        returnArrOfRepSecCos();
         colorAffectedSecs();
         colorRepeaters();
+        colorsNumsFromAffSecs();
     }
     
     //function calls
