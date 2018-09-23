@@ -19,12 +19,7 @@ let puzzleFalse = [[ 8,8,5,7,4,2,1,3,6 ],
               [ 7,7,6,3,2,5,8,1,1 ], 
               [ 3,2,8,1,9,6,5,4,7 ]];
 
-let result = true;
-let affectedRows = [];
-let affectedColumns = [];
-let affectedSections = [];
-
-// object of methods used in sudokuChecker
+// object of methods  and values used in sudokuChecker
 let sudMethodsObj = {
 
     // gets a seperate array for a row of the grid
@@ -55,20 +50,21 @@ let sudMethodsObj = {
         return subGrid;
     },
 
-    //checks a sub array of 9 to make sure it passes sudoku rules
+    //checks a sub array of 9 to make sure it passes sudoku rules. Returns true or false an and array or coords of repeating numbers.
     subCheck : function (arr) {
-        if(arr.length !== 9){
-            return false;
-        }
+        let arrOfRepeaters = [];
+        let result = [true, arrOfRepeaters];
         for(let i = 0; i < arr.length; i++){
             let currentNum = arr[i];
             for(let j = i+1; j < arr.length; j++){
                 if(currentNum === arr[j]){
-                    return false;
+                    arrOfRepeaters.push(i);
+                    arrOfRepeaters.push(j);
+                    result[0] = false;
                 }
             }
         }
-        return true;
+        return result;
     },
     
     // array of coords to check each section of the grid
@@ -80,7 +76,19 @@ let sudMethodsObj = {
         }
       }
       return coordsArr;
-    }
+    },
+    
+    //results are sent here
+    result : true,
+    
+    affectedRows : [],
+    
+    affectedColumns : [],
+    
+    affectedSections : [],
+    
+    repeatingNumbers: []
+    
 }
 
 
@@ -90,11 +98,23 @@ function sudokuChecker(puzzle){
     
         //itterates through each row checking for sudoku rules
         function checkRows(puzzle){
+            let rowRepeaters = [];
             for(let i = 0; i < puzzle.length; i++){
                 let currentRow = sudMethodsObj.getRow(puzzle, i);
-                if(sudMethodsObj.subCheck(currentRow) === false){
-                    affectedRows.push(i);  
-                    result = false;
+                if(sudMethodsObj.subCheck(currentRow)[0] === false){
+                    sudMethodsObj.affectedRows.push(i);
+                    rowRepeaters.push([i,sudMethodsObj.subCheck(currentRow)[1]]);
+                    sudMethodsObj.result = false;
+                }
+            }
+            //formats repeaters in coord pairs and pushes them to repeatingNumbers array
+            for(let i = 0; i < rowRepeaters.length; i++){
+                for(let j = 0; j < rowRepeaters[i].length; j++){
+                    let currentCoor = [rowRepeaters[i][0], rowRepeaters[i][j]];
+                    for(let k = 0; k < rowRepeaters[i][j].length; k++){
+                        let currentCoord = [rowRepeaters[i][0],rowRepeaters[i][j][k]];
+                        repeatingNumbers.push(currentCoord);
+                    }
                 }
             }
         }
@@ -103,9 +123,9 @@ function sudokuChecker(puzzle){
         function checkColumns(puzzle){
             for(let i = 0; i < puzzle[0].length; i++){
                 let currentCol = sudMethodsObj.getColumn(puzzle, i);
-                if(sudMethodsObj.subCheck(currentCol) === false){
-                    affectedColumns.push(i); 
-                    result = false;
+                if(sudMethodsObj.subCheck(currentCol)[0] === false){
+                    sudMethodsObj.affectedColumns.push(i); 
+                    sudMethodsObj.result = false;
                 }
             }
         }
@@ -115,9 +135,9 @@ function sudokuChecker(puzzle){
           for(let i = 0; i < (puzzle.length/3); i++){
             for(let j = 0; j < (puzzle.length/3); j++){
               let currentSec = sudMethodsObj.getSection(puzzle, j, i);
-              if(sudMethodsObj.subCheck(currentSec) === false){
-                affectedSections.push([j,i]);
-                result = false;
+              if(sudMethodsObj.subCheck(currentSec)[0] === false){
+                sudMethodsObj.affectedSections.push([j,i]);
+                sudMethodsObj.result = false;
               }
             }
           }
@@ -127,13 +147,13 @@ function sudokuChecker(puzzle){
     function displayResults() {
         let message = null;
         // sets message for true or false
-        if(result === true){
+        if(sudMethodsObj.result === true){
             message = "😎 Looks great! 😎";
         }
-        if(result === false){
+        if(sudMethodsObj.result === false){
             message = "😓 No dice. 😓";
         }
-        if(result === "incorrectInputArray"){
+        if(sudMethodsObj.result === "incorrectInputArray"){
             message = "😖 You entered the wrong amount of numbers. 😖"
         }
         
@@ -150,10 +170,9 @@ function sudokuChecker(puzzle){
     checkSection(puzzle)
     displayResults();
     
-
+    console.log(sudMethodsObj.repeatingNumbers);
     //returns true or false
-    console.log(affectedSections);
-    return result;
+    return sudMethodsObj.result;
 }
 
 
@@ -169,7 +188,7 @@ function setGrid() {
       let numbersString= inputGridString.replace(/\D/g,"");
     
       if(numbersString.length !== 81){
-          result = "incorrectInputArray";
+          sudMethodsObj.result = "incorrectInputArray";
       }
 
       //populates empty array with numbers from the string
@@ -213,18 +232,18 @@ function displayResultsGrid(){
     document.getElementById('displayGrid').innerHTML = display;
     //changes the background color of incorrect rows and columns
     function changeColor() {
-        if(affectedRows.length > 0){
-            for(let j = 0; j < affectedRows.length; j++){
+        if(sudMethodsObj.affectedRows.length > 0){
+            for(let j = 0; j < sudMethodsObj.affectedRows.length; j++){
                 for(let i = 0; i < 9; i++){
-                    let currentCoord = `[${i},${affectedRows[j]}]`;
+                    let currentCoord = `[${i},${sudMethodsObj.affectedRows[j]}]`;
                     document.getElementById(`${currentCoord}`).style.backgroundColor = "rgba(251,82,62,0.3)"; 
                 }
             }
         } 
-        if(affectedColumns.length > 0){
-            for(let i = 0; i < affectedColumns.length; i++){
+        if(sudMethodsObj.affectedColumns.length > 0){
+            for(let i = 0; i < sudMethodsObj.affectedColumns.length; i++){
                 for(let j = 0; j < 9; j++){
-                    let currentCoord = `[${affectedColumns[i]},${j}]`;
+                    let currentCoord = `[${sudMethodsObj.affectedColumns[i]},${j}]`;
                     document.getElementById(`${currentCoord}`).style.backgroundColor = "rgba(251,82,62,0.3)"; 
                 }
             }
@@ -250,8 +269,8 @@ function displayResultsGrid(){
       //itterates through the affected sections to get an array of coords
         function itterateThruInd(){
             let arrOfAffectedSec = [];
-            for(let i = 0; i < affectedSections.length; i++){
-                let currentArr = getSectionInd(setGrid(), affectedSections[i][0], affectedSections[i][1]);
+            for(let i = 0; i < sudMethodsObj.affectedSections.length; i++){
+                let currentArr = getSectionInd(setGrid(), sudMethodsObj.affectedSections[i][0], sudMethodsObj.affectedSections[i][1]);
                 arrOfAffectedSec.push(currentArr.slice());
             }
             return arrOfAffectedSec;
@@ -282,10 +301,10 @@ function displayResultsGrid(){
 
 //resets the result to true after results are displayed
 function reset(){
-    result = true;
-    affectedRows = [];
-    affectedColumns = [];
-    affectedSections = [];
+    sudMethodsObj.result = true;
+    sudMethodsObj.affectedRows = [];
+    sudMethodsObj.affectedColumns = [];
+    sudMethodsObj.affectedSections = [];
 }
 
 
