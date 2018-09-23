@@ -197,6 +197,7 @@ function sudokuChecker(puzzle){
 
         // displays results
         document.getElementById('displayMessage').style.display = 'block';
+        document.getElementById("displayGrid").style.display = 'grid';
         
     }
     

@@ -56,6 +56,12 @@ li {
     padding: 5px;
 }
 
+#examples{
+    display:flex;
+    justify-content: space-around;
+    text-align: center;
+    
+}
 
 #userGrid {
     display: block;
@@ -92,7 +98,7 @@ li {
 }
 
 #displayGrid {
-    display: grid;
+    display: none;
     grid-template-columns: repeat(9, 50px);
     margin: 5px 10px 60px 5px;
     border: solid 2px rgb(56, 54, 54);
