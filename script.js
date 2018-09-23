@@ -253,7 +253,7 @@ const coordsBuilder = (puzzle) => {
             if(!currentNum){
                 currentNum = "😕";
             }
-            let currentDiv = `<div class="gridSquare" id="[${[j,i]}]">${currentNum}</div>`;
+            let currentDiv = `<div class="gridSquare" id="[${[j,i]}]"<p>${currentNum}</p></div>`;
             coordsStr +=currentDiv;
             }
         }
@@ -330,6 +330,7 @@ function displayResultsGrid(){
             for(let i = 0; i < sudMethodsObj.repeatingNumbers.length; i++){
                 let currentCoord = `[${sudMethodsObj.repeatingNumbers[i][0]},${sudMethodsObj.repeatingNumbers[i][1]}]`;
                 document.getElementById(`${currentCoord}`).style.color = "rgb(239, 0, 0)";
+                document.getElementById(`${currentCoord}`).style.fontSize = "135%";
             }
         }
         
@@ -348,6 +349,7 @@ function displayResultsGrid(){
             for(let i = 0; i < sudMethodsObj.arrOfRepCoSec.length; i++){
                 let currentCoord = `[${sudMethodsObj.arrOfRepCoSec[i][0]},${sudMethodsObj.arrOfRepCoSec[i][1]}]`;
                 document.getElementById(`${currentCoord}`).style.color = "rgb(239, 0, 0)";
+                document.getElementById(`${currentCoord}`).style.fontSize = "135%";
             }
         }
         
