@@ -129,7 +129,9 @@ function sudokuChecker(puzzle){
                 if(sudMethodsObj.subCheck(currentRow)[0] === false){
                     sudMethodsObj.affectedRows.push(i);
                     rowRepeaters.push([i,sudMethodsObj.subCheck(currentRow)[1]]);
-                    sudMethodsObj.result = false;
+                    if(sudMethodsObj.result !== "incorrectInputArray"){
+                        sudMethodsObj.result = false;
+                    }  
                 }
             }
             //formats repeaters in coord pairs and pushes them to repeatingNumbers array
@@ -152,7 +154,9 @@ function sudokuChecker(puzzle){
                 if(sudMethodsObj.subCheck(currentCol)[0] === false){
                     sudMethodsObj.affectedColumns.push(i);
                     colRepeaters.push([i,sudMethodsObj.subCheck(currentCol)[1]]);
-                    sudMethodsObj.result = false;
+                    if(sudMethodsObj.result !== "incorrectInputArray"){
+                        sudMethodsObj.result = false;
+                    }
                 }
             }
             //formats repeaters in coord pairs and pushes them to repeatingNumbers array
@@ -175,7 +179,9 @@ function sudokuChecker(puzzle){
                     if(sudMethodsObj.subCheck(currentSec)[0] === false){
                     sudMethodsObj.secRepeaters.push([i, j, sudMethodsObj.subCheck(currentSec)[1]]);
                     sudMethodsObj.affectedSections.push([j,i]);
-                    sudMethodsObj.result = false;
+                    if(sudMethodsObj.result !== "incorrectInputArray"){
+                       sudMethodsObj.result = false; 
+                    }
                 }
             }
         }
@@ -274,7 +280,7 @@ function displayResultsGrid(){
             for(let j = 0; j < sudMethodsObj.affectedRows.length; j++){
                 for(let i = 0; i < 9; i++){
                     let currentCoord = `[${i},${sudMethodsObj.affectedRows[j]}]`;
-                    document.getElementById(`${currentCoord}`).style.backgroundColor = "#ff997a"; 
+                    document.getElementById(`${currentCoord}`).style.backgroundColor = "#ff997a";
                 }
             }
         } 
@@ -366,6 +372,7 @@ function displayResultsGrid(){
     //function calls
     findAndColorSections();
     changeColor();
+    
 }
     
 
