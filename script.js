@@ -112,8 +112,6 @@ let sudMethodsObj = {
     
     secRepeaters : [],
     
-    arrOfRepCoSec : []
-    
 }
 
 
@@ -343,36 +341,27 @@ function displayResultsGrid(){
             }
         }
         
-        //takes repeating numbers from sections and returns an array with correctly formatted coordinates to color
+        //takes repeating numbers from sections and pushes correctly formatted coordinates to repeatingNumbers array
         function returnArrOfRepSecCos(){
           for(let i = 0; i < sudMethodsObj.secRepeaters.length; i++){
             for(let j = 0; j < sudMethodsObj.secRepeaters[i][2].length; j++){
               let currentEl = [sudMethodsObj.secRepeaters[i][0], sudMethodsObj.secRepeaters[i][1], sudMethodsObj.secRepeaters[i][2][j]];
               let resultCoords = sudMethodsObj.returnRepSecCoords(currentEl[0], currentEl[1], currentEl[2]);
-              sudMethodsObj.arrOfRepCoSec.push(resultCoords);
+              sudMethodsObj.repeatingNumbers.push(resultCoords);
             }
           }
-        }
-        
-        function colorsNumsFromAffSecs(){
-            for(let i = 0; i < sudMethodsObj.arrOfRepCoSec.length; i++){
-                let currentCoord = `[${sudMethodsObj.arrOfRepCoSec[i][0]},${sudMethodsObj.arrOfRepCoSec[i][1]}]`;
-                document.getElementById(`${currentCoord}`).style.color = "rgb(239, 0, 0)";
-                document.getElementById(`${currentCoord}`).style.fontSize = "135%";
-            }
         }
         
         //function calls
         returnArrOfRepSecCos();
         colorAffectedSecs();
         colorRepeaters();
-        colorsNumsFromAffSecs();
+        changeColor();
     }
     
     //function calls
     findAndColorSections();
-    changeColor();
-    
+    console.log(sudMethodsObj.affectedRows);
 }
     
 
@@ -385,7 +374,7 @@ function reset(){
     sudMethodsObj.affectedSections = [];
     sudMethodsObj.repeatingNumbers = [];
     sudMethodsObj.secRepeaters = [];
-    sudMethodsObj.arrOfRepCoSec = [];
+    //sudMethodsObj.arrOfRepCoSec = [];
 }
 
 
