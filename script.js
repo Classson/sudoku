@@ -1,13 +1,13 @@
 //// test sudoku grids
-let puzzleTrue = [[ 8,9,5,7,4,2,1,3,6 ],
-              [ 2,7,1,9,6,3,4,8,5 ],
-              [ 4,6,3,5,8,1,7,9,2 ],
-              [ 9,3,4,6,1,7,2,5,8 ],
-              [ 5,1,7,2,3,8,9,6,4 ],
-              [ 6,8,2,4,5,9,3,7,1 ],
-              [ 1,5,9,8,7,4,6,2,3 ],
-              [ 7,4,6,3,2,5,8,1,9 ],
-              [ 3,2,8,1,9,6,5,4,7]];
+//let puzzleTrue = [[ 8,9,5,7,4,2,1,3,6 ],
+//              [ 2,7,1,9,6,3,4,8,5 ],
+//              [ 4,6,3,5,8,1,7,9,2 ],
+//              [ 9,3,4,6,1,7,2,5,8 ],
+//              [ 5,1,7,2,3,8,9,6,4 ],
+//              [ 6,8,2,4,5,9,3,7,1 ],
+//              [ 1,5,9,8,7,4,6,2,3 ],
+//              [ 7,4,6,3,2,5,8,1,9 ],
+//              [ 3,2,8,1,9,6,5,4,7]];
 //
 //let puzzleFalse = [[ 8,8,5,7,4,2,1,3,6 ],
 //              [ 8,7,1,9,6,3,4,8,5 ],
@@ -100,6 +100,8 @@ let sudMethodsObj = {
     //results are sent here
     result : true,
     
+    message : null,
+    
     affectedRows : [],
     
     affectedColumns : [],
@@ -181,19 +183,19 @@ function sudokuChecker(puzzle){
 
     
     function displayResults() {
-        let message = null;
+        
         // sets message for true or false
         if(sudMethodsObj.result === true){
-            message = "😎 Looks great! 😎";
+            sudMethodsObj.message = "😎 Looks great! 😎";
         }
         if(sudMethodsObj.result === false){
-            message = "😓 No dice. 😓";
+            sudMethodsObj.message = "😓 No dice. 😓";
         }
         if(sudMethodsObj.result === "incorrectInputArray"){
-            message = "😖 You entered the wrong amount of numbers. 😖"
+            sudMethodsObj.message = "😖 You entered the wrong amount of numbers. 😖"
         }
         
-        document.getElementById('displayMessage').innerHTML = message;
+        document.getElementById('displayMessage').innerHTML = sudMethodsObj.message;
 
         // displays results
         document.getElementById('displayMessage').style.display = 'block';
@@ -370,6 +372,7 @@ function displayResultsGrid(){
 //resets the result to true after results are displayed
 function reset(){
     sudMethodsObj.result = true;
+    sudMethodsObj.message = null;
     sudMethodsObj.affectedRows = [];
     sudMethodsObj.affectedColumns = [];
     sudMethodsObj.affectedSections = [];
