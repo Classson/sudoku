@@ -374,7 +374,6 @@ function reset(){
     sudMethodsObj.affectedSections = [];
     sudMethodsObj.repeatingNumbers = [];
     sudMethodsObj.secRepeaters = [];
-    //sudMethodsObj.arrOfRepCoSec = [];
 }
 
 

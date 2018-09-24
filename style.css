@@ -128,3 +128,9 @@ li {
     padding-top: -400px;
 }
 
+@media(max-width: 450px){
+    .exampGrid{
+    font-size: 3vw;
+}
+    
+}
