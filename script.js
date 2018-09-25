@@ -102,6 +102,8 @@ let sudMethodsObj = {
     
     message : null,
     
+    emoji : null,
+    
     affectedRows : [],
     
     affectedColumns : [],
@@ -191,15 +193,19 @@ function sudokuChecker(puzzle){
         // sets message for true or false
         if(sudMethodsObj.result === true){
             sudMethodsObj.message = "😎 Looks great! 😎";
+            sudMethodsObj.emoji = "hi";
         }
         if(sudMethodsObj.result === false){
             sudMethodsObj.message = "😓 No dice. 😓";
+            sudMethodsObj.emoji = "😓";
         }
         if(sudMethodsObj.result === "incorrectInputArray"){
-            sudMethodsObj.message = "😖 You entered the wrong amount of numbers. 😖"
+            sudMethodsObj.message = "😖 You entered the wrong amount of numbers. 😖";
+            sudMethodsObj.emoji = "😖";
         }
         
         document.getElementById('displayMessage').innerHTML = sudMethodsObj.message;
+        document.getElementsByClassName('emoji').innerHTML = sudMethodsObj.emoji;
 
         // displays results
         document.getElementById('displayMessage').style.display = 'block';
@@ -369,6 +375,7 @@ function displayResultsGrid(){
 function reset(){
     sudMethodsObj.result = true;
     sudMethodsObj.message = null;
+    sudMethodsObj.emoji = null;
     sudMethodsObj.affectedRows = [];
     sudMethodsObj.affectedColumns = [];
     sudMethodsObj.affectedSections = [];
