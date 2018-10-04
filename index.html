@@ -5,10 +5,11 @@ https://learn.fullstackacademy.com/workshop/5ad399aa137d870004733bac/content/5ad
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Sudoku Checker</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.86, maximum-scale=3.0, minimum-scale=0.86">
+    <title>Sudoku Checker</title>
   <!-- css stylesheet -->
-  <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div id="header">
@@ -66,9 +67,12 @@ https://learn.fullstackacademy.com/workshop/5ad399aa137d870004733bac/content/5ad
         <input type ="button" id="submitButton" onclick="sudokuChecker(setGrid());displayResultsGrid();reset();window.location.href='#displayMessage'" value="Submit Grid"/>
 
         <div class=results>
-            <h2 class="emoji"></h2><h2 id="displayMessage"></h2><h2 class="emoji"></h2>
+            <div id="message">
+                <h1 class="emoji"></h1><h2 id="displayMessage"></h2><h1 class="emoji"></h1>
+            </div>
 
             <div id="displayGrid"></div>
+            
         </div>
     </div>
     

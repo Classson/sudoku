@@ -192,20 +192,23 @@ function sudokuChecker(puzzle){
         
         // sets message for true or false
         if(sudMethodsObj.result === true){
-            sudMethodsObj.message = "😎 Looks great! 😎";
-            sudMethodsObj.emoji = "hi";
+            sudMethodsObj.message = "Looks great!";
+            sudMethodsObj.emoji = "😎";
         }
         if(sudMethodsObj.result === false){
-            sudMethodsObj.message = "😓 No dice. 😓";
+            sudMethodsObj.message = "No dice.";
             sudMethodsObj.emoji = "😓";
         }
         if(sudMethodsObj.result === "incorrectInputArray"){
-            sudMethodsObj.message = "😖 You entered the wrong amount of numbers. 😖";
+            sudMethodsObj.message = "You entered the wrong amount of numbers.";
             sudMethodsObj.emoji = "😖";
         }
         
         document.getElementById('displayMessage').innerHTML = sudMethodsObj.message;
-        document.getElementsByClassName('emoji').innerHTML = sudMethodsObj.emoji;
+        
+        document.getElementsByClassName('emoji')[0].innerHTML = sudMethodsObj.emoji;
+        
+        document.getElementsByClassName('emoji')[1].innerHTML = sudMethodsObj.emoji;
 
         // displays results
         document.getElementById('displayMessage').style.display = 'block';
